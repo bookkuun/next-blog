@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
 } from "../ui/navigation-menu";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import SearchBox from "../posts/SearchBox";
 
 const PublicHeader = () => {
   return (
@@ -25,10 +25,7 @@ const PublicHeader = () => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="flex items-center gap-4">
-            <Input
-              placeholder="記事を検索"
-              className="w-[200px] lg:w-[300px] bg-white"
-            />
+            <SearchBox />
             <Button asChild variant="outline">
               <Link href="login">ログイン</Link>
             </Button>

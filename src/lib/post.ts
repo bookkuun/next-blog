@@ -14,3 +14,19 @@ export async function getPost(id: string) {
     include: { author: { select: { name: true } } },
   });
 }
+
+export async function searchPosts(search: string) {
+  const decodedSearch = decodeURIComponent(search);
+  const normalizedSearch = decodedSearch.replace(/[\s ]+/g, " ").trim();
+  const searchWords = normalizedSearch.split(" ").filter(Boolean);
+
+  const fileters = searchWords.map((word) => ({
+    OR: [{ title: { contains: word } }, { content: { contains: word } }],
+  }));
+
+  return await prisma.post.findMany({
+    where: { AND: fileters },
+    include: { author: { select: { name: true } } },
+    orderBy: { createdAt: "desc" },
+  });
+}
