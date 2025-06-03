@@ -20,7 +20,7 @@ const LoginForm = () => {
             <Input id="email" type="email" name="email" required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">メールアドレス</Label>
+            <Label htmlFor="password">パスワード</Label>
             <Input id="password" type="password" name="password" required />
           </div>
           <Button type="submit" className="w-full">
