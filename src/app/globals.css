@@ -120,3 +120,6 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* @plugin 'tailwindcss-animate'; */
+@plugin '@tailwindcss/typography';
