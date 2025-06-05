@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -5,32 +7,59 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import DeleteDropDialog from "./deletePostDialog";
+import { useState } from "react";
 
 const PostDropdownMenu = ({ postId }: { postId: string }) => {
+  const [isDropDownOpen, setIsDropdownOpen] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  const handleDeleteDialogChange = (open: boolean) => {
+    setShowDeleteDialog(open);
+    if (!open) {
+      setIsDropdownOpen(false);
+    }
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="px-2 py-1 border rounded-md">
-        ⋯
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem asChild>
-          <Link href={`/manage/posts/${postId}`} className="cursor-pointer">
-            詳細
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link
-            href={`/manage/posts/${postId}/edit`}
-            className="cursor-pointer"
+    <>
+      <DropdownMenu open={isDropDownOpen} onOpenChange={setIsDropdownOpen}>
+        <DropdownMenuTrigger className="px-2 py-1 border rounded-md">
+          ⋯
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem asChild>
+            <Link href={`/manage/posts/${postId}`} className="cursor-pointer">
+              詳細
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              href={`/manage/posts/${postId}/edit`}
+              className="cursor-pointer"
+            >
+              編集
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="text-red-600 cursor-pointer"
+            onSelect={() => {
+              setIsDropdownOpen(false);
+              setShowDeleteDialog(true);
+            }}
           >
-            編集
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem className="text-red-600 cursor-pointer">
-          削除
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+            削除
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {showDeleteDialog && (
+        <DeleteDropDialog
+          postId={postId}
+          isOpen={showDeleteDialog}
+          onOpenChange={handleDeleteDialogChange}
+        />
+      )}
+    </>
   );
 };
 
