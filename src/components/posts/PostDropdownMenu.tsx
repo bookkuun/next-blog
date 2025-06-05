@@ -14,12 +14,15 @@ const PostDropdownMenu = ({ postId }: { postId: string }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <Link href={`/posts/${postId}`} className="cursor-pointer">
+          <Link href={`/manage/posts/${postId}`} className="cursor-pointer">
             詳細
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/posts/edit/${postId}`} className="cursor-pointer">
+          <Link
+            href={`/manage/posts/edit/${postId}`}
+            className="cursor-pointer"
+          >
             編集
           </Link>
         </DropdownMenuItem>

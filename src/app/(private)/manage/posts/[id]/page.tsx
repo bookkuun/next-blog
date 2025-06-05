@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getPost } from "@/lib/post";
 import { ja } from "date-fns/locale";
 import Image from "next/image";
 import { format } from "date-fns";
 import { notFound } from "next/navigation";
+import { getOwnPost } from "@/lib/ownPost";
+import { auth } from "@/auth";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHightlight from "rehype-highlight";
@@ -13,9 +14,15 @@ type Params = {
   params: Promise<{ id: string }>;
 };
 
-const PostPage = async ({ params }: Params) => {
+const ShowPage = async ({ params }: Params) => {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!session?.user?.email || !userId) {
+    throw new Error("不正なリクエストです。");
+  }
+
   const { id } = await params;
-  const post = await getPost(id);
+  const post = await getOwnPost(userId, id);
 
   if (!post) {
     notFound();
@@ -64,4 +71,4 @@ const PostPage = async ({ params }: Params) => {
   );
 };
 
-export default PostPage;
+export default ShowPage;
