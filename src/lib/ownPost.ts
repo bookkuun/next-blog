@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import { Truck } from "lucide-react";
 
 export async function getOwnPosts(userId: string) {
   return await prisma.post.findMany({
