@@ -7,8 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import DeleteDropDialog from "./deletePostDialog";
+
 import { useState } from "react";
+import DeleteDropDialog from "@/components/posts/DeletePostDialog";
 
 const PostDropdownMenu = ({ postId }: { postId: string }) => {
   const [isDropDownOpen, setIsDropdownOpen] = useState(false);

@@ -4,9 +4,7 @@ import { notFound } from "next/navigation";
 import EditPostForm from "./EditPostForm";
 
 type Params = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
 const EditPage = async ({ params }: Params) => {
